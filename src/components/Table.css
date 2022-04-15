@@ -1,0 +1,19 @@
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+table thead tr th {
+  border: 0.8px wheat solid;
+  color: yellow;
+  font-size: 1.2rem;
+  height: 30px;
+  padding: 3px;
+  text-shadow: 0.1em 0.1em 0.2em rgb(216, 195, 156);
+}
+
+table tbody tr td {
+  border: 0.8px wheat solid;
+  height: 30px;
+  padding: 3px;
+}

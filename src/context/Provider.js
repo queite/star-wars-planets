@@ -3,14 +3,15 @@ import propTypes from 'prop-types';
 import Context from './Context';
 import fetchData from '../services/fetchData';
 
-const inicialNumericalFilters = ['population', 'orbital_period',
+const inicialColumnFilters = ['population', 'orbital_period',
   'diameter', 'rotation_period', 'surface_water'];
 
 function Provider({ children }) {
   const [data, setData] = useState({});
   const [error, setError] = useState({});
   const [filters, setFilters] = useState({ filterByName: '' });
-  const [numericalFilters, setNumericalFilters] = useState(inicialNumericalFilters);
+  const [columnFilters, setColumnFilters] = useState(inicialColumnFilters);
+  const [savedFilters, setSavedFilters] = useState([]);
 
   // Chama o resultado do fetch
   useEffect(() => fetchData(setData, setError), []);
@@ -21,8 +22,10 @@ function Provider({ children }) {
     error,
     filters,
     setFilters,
-    numericalFilters,
-    setNumericalFilters,
+    columnFilters,
+    setColumnFilters,
+    savedFilters,
+    setSavedFilters,
   };
 
   return (

@@ -1,13 +1,35 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
+import './Table.css';
 
 function Table() {
-  const { data: { results }, filters: { filterByName } } = useContext(Context);
+  const { data: { results }, filters: { filterByName },
+    savedFilters } = useContext(Context);
 
-  const planetToLowerCase = filterByName.toLowerCase();
-  const planetsToRender = filterByName !== ''
-    ? results.filter((planet) => planet.name.toLowerCase().includes(planetToLowerCase))
-    : results;
+  function filter() {
+    const planetToLowerCase = filterByName.toLowerCase();
+    if (filterByName !== '') {
+      return results
+        .filter((planet) => planet.name.toLowerCase().includes(planetToLowerCase));
+    }
+    if (savedFilters.length) {
+      return results.filter((item) => {
+        switch (savedFilters[0].comparison) {
+        case 'maior que':
+          return Number(item[savedFilters[0].column]) > Number(savedFilters[0].value);
+        case 'menor que':
+          return Number(item[savedFilters[0].column]) < Number(savedFilters[0].value);
+        case 'igual a':
+          return Number(item[savedFilters[0].column]) === Number(savedFilters[0].value);
+        default:
+          return results;
+        }
+      });
+    }
+    return results;
+  }
+
+  const planetsToRender = filter();
 
   if (!planetsToRender) return (<span>Loading</span>);
   return (
