@@ -12,9 +12,19 @@ function Provider({ children }) {
   const [filters, setFilters] = useState({ filterByName: '' });
   const [columnFilters, setColumnFilters] = useState(initialColumnFilters);
   const [savedFilters, setSavedFilters] = useState([]);
+  const [order, setOrder] = useState({});
 
   // Chama o resultado do fetch
   useEffect(() => fetchData(setData, setError), []);
+
+  // Ordenação inicuial dos planetas por ordem alfabética
+  function ordenateResults() {
+    const { results } = data;
+    if (results) {
+      results.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  }
+  ordenateResults();
 
   // Variável que engloba dados do contexto
   const context = {
@@ -26,6 +36,8 @@ function Provider({ children }) {
     setColumnFilters,
     savedFilters,
     setSavedFilters,
+    order,
+    setOrder,
   };
 
   return (

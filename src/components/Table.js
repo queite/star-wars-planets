@@ -4,7 +4,7 @@ import './Table.css';
 
 function Table() {
   const { data: { results }, filters: { filterByName },
-    savedFilters } = useContext(Context);
+    savedFilters, order } = useContext(Context);
 
   function filters() {
     const planetToLowerCase = filterByName.toLowerCase();
@@ -29,10 +29,32 @@ function Table() {
     }
     return results;
   }
-
   const planetsToRender = filters();
 
-  if (!planetsToRender) return (<span>Loading</span>);
+  function sortByColumn(column, sort) {
+    const planets = planetsToRender.filter((planet) => planet[column] !== 'unknown');
+    planets.sort((a, b) => {
+      const isAsc = sort === 'ASC';
+      if (isAsc) {
+        return Number(a[column]) - Number(b[column]);
+      }
+      return Number(b[column]) - Number(a[column]);
+    });
+    return planets;
+  }
+
+  function ordenate() {
+    if (Object.keys(order).length) {
+      const { column, sort } = order;
+      const unknown = planetsToRender.filter((item) => item[column] === 'unknown');
+      const sorted = sortByColumn(column, sort);
+      return [...sorted, ...unknown];
+    }
+    return planetsToRender;
+  }
+  const ordenatedPlanetsToRender = ordenate();
+
+  if (!ordenatedPlanetsToRender) return (<span>Loading</span>);
   return (
     <table>
       <thead>
@@ -53,9 +75,9 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        { planetsToRender.map((item) => (
+        { ordenatedPlanetsToRender.map((item) => (
           <tr key={ item.name }>
-            <td>{item.name}</td>
+            <td data-testid="planet-name">{item.name}</td>
             <td>{item.rotation_period}</td>
             <td>{item.orbital_period}</td>
             <td>{item.diameter}</td>
