@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Context from '../context/Context';
 
+const noMagicNumber = 36;
+
 function Filters() {
   const { filters, setFilters, columnFilters,
     savedFilters, setSavedFilters, setColumnFilters } = useContext(Context);
@@ -10,6 +12,7 @@ function Filters() {
     column: 'population',
     comparison: 'maior que',
     value: '0',
+    id: Math.floor(Date.now() * Math.random()).toString(noMagicNumber), // Fonte: https://codigofonte.org/gerando-id-aleatorio-em-javascript/
   });
 
   // Fonte desta função: https://metring.com.br/javascript-primeira-letra-maiuscula
@@ -28,7 +31,12 @@ function Filters() {
         .filter((column) => !currentFilters.includes(column));
       setColumnFilters(newFilter);
     }
-  }, [savedFilters]);
+  }, [savedFilters, setColumnFilters]);
+
+  function handleDeleteFilter(idFilter) {
+    const newSavedFilter = savedFilters.filter((item) => item.id !== idFilter);
+    setSavedFilters(newSavedFilter);
+  }
 
   return (
     <>
@@ -44,6 +52,7 @@ function Filters() {
         onChange={ ({ target }) => setNumericalFilter({
           ...numericalFilter,
           column: target.value,
+          id: Math.floor(Date.now() * Math.random()).toString(noMagicNumber),
         }) }
       >
         {columnFilters.map((name) => (
@@ -83,6 +92,26 @@ function Filters() {
       >
         Filtrar
       </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => setSavedFilters([]) }
+      >
+        Remover filtros
+      </button>
+      <section>
+        { savedFilters && savedFilters.map((filter) => (
+          <p key={ filter.id } data-testid="filter">
+            {`${filter.column} ${filter.comparison} ${filter.value}`}
+            <button
+              type="button"
+              onClick={ () => handleDeleteFilter(filter.id) }
+            >
+              X
+            </button>
+          </p>
+        ))}
+      </section>
     </>
 
   );

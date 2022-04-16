@@ -3,9 +3,10 @@ import propTypes from 'prop-types';
 import Context from './Context';
 import fetchData from '../services/fetchData';
 
+const initialColumnFilters = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
 function Provider({ children }) {
-  const initialColumnFilters = ['population', 'orbital_period',
-    'diameter', 'rotation_period', 'surface_water'];
   const [data, setData] = useState({});
   const [error, setError] = useState({});
   const [filters, setFilters] = useState({ filterByName: '' });
