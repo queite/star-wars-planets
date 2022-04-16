@@ -6,30 +6,32 @@ function Table() {
   const { data: { results }, filters: { filterByName },
     savedFilters } = useContext(Context);
 
-  function filter() {
+  function filters() {
     const planetToLowerCase = filterByName.toLowerCase();
     if (filterByName !== '') {
       return results
         .filter((planet) => planet.name.toLowerCase().includes(planetToLowerCase));
     }
     if (savedFilters.length) {
-      return results.filter((item) => {
-        switch (savedFilters[0].comparison) {
-        case 'maior que':
-          return Number(item[savedFilters[0].column]) > Number(savedFilters[0].value);
-        case 'menor que':
-          return Number(item[savedFilters[0].column]) < Number(savedFilters[0].value);
-        case 'igual a':
-          return Number(item[savedFilters[0].column]) === Number(savedFilters[0].value);
-        default:
-          return results;
-        }
-      });
+      return savedFilters.reduce((acc, filterObj) => {
+        acc = acc.filter((item) => {
+          switch (filterObj.comparison) {
+          case 'maior que':
+            return Number(item[filterObj.column]) > Number(filterObj.value);
+          case 'menor que':
+            return Number(item[filterObj.column]) < Number(filterObj.value);
+          default:
+            return Number(item[filterObj.column]) === Number(filterObj.value);
+          }
+        });
+        console.log(acc);
+        return acc;
+      }, results);
     }
     return results;
   }
 
-  const planetsToRender = filter();
+  const planetsToRender = filters();
 
   if (!planetsToRender) return (<span>Loading</span>);
   return (
