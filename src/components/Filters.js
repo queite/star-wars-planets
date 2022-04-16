@@ -3,7 +3,7 @@ import Context from '../context/Context';
 
 function Filters() {
   const { filters, setFilters, columnFilters,
-    savedFilters, setSavedFilters } = useContext(Context);
+    savedFilters, setSavedFilters, setColumnFilters } = useContext(Context);
 
   // State usado para criar objeto para filtro numérico
   const [numericalFilter, setNumericalFilter] = useState({
@@ -17,6 +17,18 @@ function Filters() {
   // const capitalize = (str) => (typeof str !== 'string'
   //   ? ''
   //   : str.charAt(0).toUpperCase() + str.substr(1));
+
+  // Não repetição de filtros numéricos
+  useEffect(() => {
+    const initialColumnFilters = ['population', 'orbital_period',
+      'diameter', 'rotation_period', 'surface_water'];
+    const currentFilters = savedFilters.map((filter) => filter.column);
+    if (currentFilters) {
+      const newFilter = initialColumnFilters
+        .filter((column) => !currentFilters.includes(column));
+      setColumnFilters(newFilter);
+    }
+  }, [savedFilters]);
 
   return (
     <>

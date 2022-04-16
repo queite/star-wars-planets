@@ -24,7 +24,6 @@ function Table() {
             return Number(item[filterObj.column]) === Number(filterObj.value);
           }
         });
-        console.log(acc);
         return acc;
       }, results);
     }
