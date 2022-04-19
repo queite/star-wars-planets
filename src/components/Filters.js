@@ -40,112 +40,120 @@ function Filters() {
   }
 
   return (
-    <>
-      <section>
-        <input
-          data-testid="name-filter"
-          type="text"
-          placeholder="Digite um planeta"
-          onChange={ (e) => setFilters({ ...filters, filterByName: e.target.value }) }
-        />
-        <select
-          defaultValue={ columnFilters[0] }
-          data-testid="column-filter"
-          onChange={ ({ target }) => setNumericalFilter({
-            ...numericalFilter,
-            column: target.value,
-            id: Math.floor(Date.now() * Math.random()).toString(noMagicNumber),
-          }) }
-        >
-          {columnFilters.map((name) => (
-            <option
-              key={ name }
-              value={ name }
-            >
-              {name}
-            </option>))}
-        </select>
-        <select
-          defaultValue="maior que"
-          data-testid="comparison-filter"
-          onChange={ ({ target }) => setNumericalFilter({
-            ...numericalFilter,
-            comparison: target.value,
-          }) }
-        >
-          <option value="maior que">maior que</option>
-          <option value="menor que">menor que</option>
-          <option value="igual a">igual a</option>
-        </select>
-        <input
-          defaultValue={ 0 }
-          type="number"
-          data-testid="value-filter"
-          placeholder="Digite um número"
-          onChange={ ({ target }) => setNumericalFilter({
-            ...numericalFilter,
-            value: target.value,
-          }) }
-        />
-        <button
-          data-testid="button-filter"
-          type="button"
-          onClick={ () => setSavedFilters([...savedFilters, numericalFilter]) }
-        >
-          Filtrar
-        </button>
-        <button
-          type="button"
-          data-testid="button-remove-filters"
-          onClick={ () => setSavedFilters([]) }
-        >
-          Remover filtros
-        </button>
-      </section>
-      <section>
-        <select
-          data-testid="column-sort"
-          onChange={ ({ target }) => setOrdenate({ ...ordenate, column: target.value }) }
-        >
-          {initialColumnFilters.map((name, index) => (
-            <option
-              key={ index }
-              value={ name }
-            >
-              {name}
-            </option>))}
-        </select>
-        <label htmlFor="ASC">
+    <div className="filters-container">
+      <div className="input-containers">
+        <section className="filters">
           <input
-            name="order"
-            value="ASC"
-            type="radio"
-            data-testid="column-sort-input-asc"
-            id="ASC"
-            onChange={ ({ target }) => setOrdenate({ ...ordenate, sort: target.value }) }
+            data-testid="name-filter"
+            type="text"
+            placeholder="Digite um planeta"
+            onChange={ (e) => setFilters({ ...filters, filterByName: e.target.value }) }
           />
-          Ascendente
-        </label>
-        <label htmlFor="DSC">
+          <select
+            defaultValue={ columnFilters[0] }
+            data-testid="column-filter"
+            onChange={ ({ target }) => setNumericalFilter({
+              ...numericalFilter,
+              column: target.value,
+              id: Math.floor(Date.now() * Math.random()).toString(noMagicNumber),
+            }) }
+          >
+            {columnFilters.map((name) => (
+              <option
+                key={ name }
+                value={ name }
+              >
+                {name}
+              </option>))}
+          </select>
+          <select
+            defaultValue="maior que"
+            data-testid="comparison-filter"
+            onChange={ ({ target }) => setNumericalFilter({
+              ...numericalFilter,
+              comparison: target.value,
+            }) }
+          >
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
+          </select>
           <input
-            name="order"
-            value="DSC"
-            type="radio"
-            data-testid="column-sort-input-desc"
-            id="DSC"
-            onChange={ ({ target }) => setOrdenate({ ...ordenate, sort: target.value }) }
+            defaultValue={ 0 }
+            type="number"
+            data-testid="value-filter"
+            placeholder="Digite um número"
+            onChange={ ({ target }) => setNumericalFilter({
+              ...numericalFilter,
+              value: target.value,
+            }) }
           />
-          Descendente
-        </label>
-        <button
-          type="button"
-          data-testid="column-sort-button"
-          onClick={ () => setOrder(ordenate) }
-        >
-          Ordenar
-        </button>
-      </section>
-      <section>
+          <button
+            data-testid="button-filter"
+            type="button"
+            onClick={ () => setSavedFilters([...savedFilters, numericalFilter]) }
+          >
+            Filtrar
+          </button>
+          <button
+            type="button"
+            data-testid="button-remove-filters"
+            onClick={ () => setSavedFilters([]) }
+          >
+            Remover filtros
+          </button>
+        </section>
+        <section className="order">
+          <select
+            data-testid="column-sort"
+            onChange={ ({ target }) => setOrdenate({
+              ...ordenate, column: target.value }) }
+          >
+            {initialColumnFilters.map((name, index) => (
+              <option
+                key={ index }
+                value={ name }
+              >
+                {name}
+              </option>))}
+          </select>
+          <label htmlFor="ASC">
+            <input
+              name="order"
+              value="ASC"
+              type="radio"
+              data-testid="column-sort-input-asc"
+              id="ASC"
+              onChange={ ({ target }) => setOrdenate({
+                ...ordenate, sort: target.value }) }
+              className="radio"
+            />
+            Ascendente
+          </label>
+          <label htmlFor="DSC">
+            <input
+              name="order"
+              value="DSC"
+              type="radio"
+              data-testid="column-sort-input-desc"
+              id="DSC"
+              onChange={ ({ target }) => setOrdenate({
+                ...ordenate, sort: target.value }) }
+              className="radio"
+            />
+            Descendente
+          </label>
+          <button
+            type="button"
+            data-testid="column-sort-button"
+            onClick={ () => setOrder(ordenate) }
+          >
+            Ordenar
+          </button>
+        </section>
+      </div>
+
+      <section className="applied-filters">
         { savedFilters && savedFilters.map((filter) => (
           <p key={ filter.id } data-testid="filter">
             {`${filter.column} ${filter.comparison} ${filter.value}`}
@@ -158,7 +166,7 @@ function Filters() {
           </p>
         ))}
       </section>
-    </>
+    </div>
 
   );
 }

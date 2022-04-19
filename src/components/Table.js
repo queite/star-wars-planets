@@ -7,12 +7,12 @@ function Table() {
     savedFilters, order } = useContext(Context);
 
   function filters() {
-    const planetToLowerCase = filterByName.toLowerCase();
+    const planetToLowerCase = filterByName.toLowerCase(); // Filtro nome planeta
     if (filterByName !== '') {
       return results
         .filter((planet) => planet.name.toLowerCase().includes(planetToLowerCase));
     }
-    if (savedFilters.length) {
+    if (savedFilters.length) { // Filtros numéricos
       return savedFilters.reduce((acc, filterObj) => {
         acc = acc.filter((item) => {
           switch (filterObj.comparison) {

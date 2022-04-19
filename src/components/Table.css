@@ -1,6 +1,7 @@
 table {
   border-collapse: collapse;
   margin: auto;
+  width: 100vw;
 }
 
 table thead tr th {

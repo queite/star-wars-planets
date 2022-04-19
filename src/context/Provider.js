@@ -17,7 +17,7 @@ function Provider({ children }) {
   // Chama o resultado do fetch
   useEffect(() => fetchData(setData, setError), []);
 
-  // Ordenação inicuial dos planetas por ordem alfabética
+  // Ordenação inicial dos planetas por ordem alfabética
   function ordenateResults() {
     const { results } = data;
     if (results) {

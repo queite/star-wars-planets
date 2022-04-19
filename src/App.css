@@ -1,41 +1,109 @@
-.App {
-  text-align: center;
+header {
+  display: flex;
+  margin: 5px;
+  margin-left: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header img {
+  width: 100px;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.filters-container {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  margin-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.input-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-@keyframes App-logo-spin {
+.filters {
+  margin-left: 4px;
+  margin-right: 8px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.filters input, select {
+  background-color: #b8babe;
+  border: 2px solid #424242;
+  border-radius: 4px;
+  color: black;
+  font-size: 1rem;
+  margin: 2px;
+  padding: 5px;
+  width: 120px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.filters input:first-child {
+  width: 170px;
+}
+
+/* Baseado no site: https://www.bestcssbuttongenerator.com/#/14 */
+.filters button, .order button {
+  background: linear-gradient(to bottom, #ffec64 5%, yellow 100%);
+  background-color: #ffec64;
+  border: 1px solid #fa2;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 0 #fff6af;
+  color: #333;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 5px;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fe6;
+}
+
+.applied-filters p {
+  margin: 5px;
+}
+
+.applied-filters button {
+  background: linear-gradient(to bottom, #ffec64 5%, yellow 100%);
+  background-color: #ffec64;
+  border: 1px solid #fa2;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 0 #fff6af;
+  color: #333;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: 15px;
+  padding: 4px 8px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fe6;
+}
+
+.filters button:hover, .order button:hover, .applied-filters button:hover {
+  background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+  background-color: #ffab23;
+}
+
+.filters button:active, .order button:active, .applied-filters button:active {
+  position: relative;
+  top: 1px;
+}
+
+.order label {
+  font-size: 1.1rem;
+  margin: 5px;
+}
+
+.radio {
+  font: inherit;
+  height: 1.15em;
+  margin: 0;
+  transform: translateY(-0.075em);
+  width: 1.15em;
+}
+
+.applied-filters {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 20px 10px;
 }
