@@ -9,8 +9,10 @@ function App() {
   return (
     <Provider>
       <Header />
-      <Filters />
-      <Table />
+      <div className="container">
+        <Filters />
+        <Table />
+      </div>
     </Provider>
   );
 }

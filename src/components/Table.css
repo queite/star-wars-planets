@@ -1,20 +1,28 @@
+.table-container {
+  margin: auto;
+  max-height: 500px;
+  max-width: 90vw;
+  overflow-x: auto;
+}
+
 table {
   border-collapse: collapse;
-  margin: auto;
-  width: 100vw;
+  display: table;
 }
 
 table thead tr th {
-  border: 0.8px wheat solid;
+  background-color: rgb(20, 20, 20);
+  border-bottom: 0.8px wheat solid;
   color: yellow;
   font-size: 1.2rem;
   height: 30px;
-  padding: 3px;
+  padding: 8px;
   text-shadow: 0.1em 0.1em 0.2em rgb(216, 195, 156);
 }
 
 table tbody tr td {
-  border: 0.8px wheat solid;
+  background-color: var(--backGroundColor);
+  border-bottom: 0.8px wheat solid;
   height: 30px;
-  padding: 3px;
+  padding: 8px;
 }

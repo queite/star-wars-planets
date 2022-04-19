@@ -8,21 +8,21 @@ const noMagicNumber = 36;
 function Filters() {
   const { filters, setFilters, columnFilters, setOrder,
     savedFilters, setSavedFilters, setColumnFilters } = useContext(Context);
+  const [ordenate, setOrdenate] = useState({ column: 'population', sort: 'ASC' });
 
   // State usado para criar objeto para filtro numérico
-  const [numericalFilter, setNumericalFilter] = useState({
+  const numericalFilterObj = {
     column: 'population',
     comparison: 'maior que',
     value: '0',
     id: Math.floor(Date.now() * Math.random()).toString(noMagicNumber), // Fonte: https://codigofonte.org/gerando-id-aleatorio-em-javascript/
-  });
-  const [ordenate, setOrdenate] = useState({});
+  };
+  const [numericalFilter, setNumericalFilter] = useState(numericalFilterObj);
 
   // Fonte desta função: https://metring.com.br/javascript-primeira-letra-maiuscula
-  // Usar função e linha: capitalize(name.replace(/_/i, ' ')) depois de passar nos testes
-  // const capitalize = (str) => (typeof str !== 'string'
-  //   ? ''
-  //   : str.charAt(0).toUpperCase() + str.substr(1));
+  const capitalize = (str) => (typeof str !== 'string'
+    ? ''
+    : str.charAt(0).toUpperCase() + str.substr(1));
 
   // Não repetição de filtros numéricos
   useEffect(() => {
@@ -52,6 +52,7 @@ function Filters() {
           <select
             defaultValue={ columnFilters[0] }
             data-testid="column-filter"
+            value={ numericalFilter.column }
             onChange={ ({ target }) => setNumericalFilter({
               ...numericalFilter,
               column: target.value,
@@ -63,24 +64,26 @@ function Filters() {
                 key={ name }
                 value={ name }
               >
-                {name}
+                {capitalize(name.replace(/_/i, ' '))}
               </option>))}
           </select>
           <select
             defaultValue="maior que"
+            value={ numericalFilter.comparison }
             data-testid="comparison-filter"
             onChange={ ({ target }) => setNumericalFilter({
               ...numericalFilter,
               comparison: target.value,
             }) }
           >
-            <option value="maior que">maior que</option>
-            <option value="menor que">menor que</option>
-            <option value="igual a">igual a</option>
+            <option value="maior que">Maior que</option>
+            <option value="menor que">Menor que</option>
+            <option value="igual a">Igual a</option>
           </select>
           <input
             defaultValue={ 0 }
             type="number"
+            value={ numericalFilter.value }
             data-testid="value-filter"
             placeholder="Digite um número"
             onChange={ ({ target }) => setNumericalFilter({
@@ -91,7 +94,10 @@ function Filters() {
           <button
             data-testid="button-filter"
             type="button"
-            onClick={ () => setSavedFilters([...savedFilters, numericalFilter]) }
+            onClick={ () => {
+              setSavedFilters([...savedFilters, numericalFilter]);
+              setNumericalFilter(numericalFilterObj);
+            } }
           >
             Filtrar
           </button>
@@ -114,7 +120,7 @@ function Filters() {
                 key={ index }
                 value={ name }
               >
-                {name}
+                {capitalize(name.replace(/_/i, ' '))}
               </option>))}
           </select>
           <label htmlFor="ASC">

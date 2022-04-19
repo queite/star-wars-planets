@@ -1,26 +1,29 @@
 header {
   display: flex;
-  margin: 5px;
-  margin-left: 30px;
+  justify-content: center;
 }
 
 header img {
-  width: 100px;
+  width: 130px;
 }
 
 .filters-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+  align-self: center;
+  background-color: var(--backGroundColor);
+  border-radius: 2%;
+  max-width: 90vw;
+  padding-top: 1%;
 }
 
 .input-containers {
+  background-color: inherit;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
 .filters {
+  background-color: inherit;
   margin-left: 4px;
   margin-right: 8px;
 }
@@ -90,8 +93,15 @@ header img {
 }
 
 .order label {
+  background-color: inherit;
+  display: inline-flex;
   font-size: 1.1rem;
   margin: 5px;
+  vertical-align: middle;
+}
+
+.order {
+  background-color: inherit;
 }
 
 .radio {
