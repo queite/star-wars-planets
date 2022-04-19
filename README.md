@@ -33,7 +33,7 @@ This project develops a filter list of planets from the Star Wars universe.
 ---
 
 ### 🔎 Project Preview
-<img src="./Wallet.gif" width="800" />
+<img src="./src/img/starwars.gif" width="800" />
 
 &nbsp;
 
